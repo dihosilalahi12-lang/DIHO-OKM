@@ -40,4 +40,63 @@ function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&l
 $('storeName').value=settings.name;$('storeAddress').value=settings.address;renderCart();dashboard();renderProducts();
 if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
 window.addEventListener('online',()=>$('netState').textContent='● Online');window.addEventListener('offline',()=>$('netState').textContent='● Offline');
+// Tambahan pemindai barcode melalui kamera Android. Fitur lama tetap dipertahankan.
+let barcodeStream=null, barcodeRunning=false, barcodeDetector=null, barcodeFrame=null;
+async function stopBarcodeCamera(){
+  barcodeRunning=false;
+  if(barcodeFrame)cancelAnimationFrame(barcodeFrame);
+  barcodeFrame=null;
+  if(barcodeStream){barcodeStream.getTracks().forEach(t=>t.stop());barcodeStream=null;}
+  const video=$('barcodeVideo'); if(video)video.srcObject=null;
+  $('cameraPanel').classList.add('hidden');
+}
+async function startBarcodeCamera(){
+  if(!('BarcodeDetector' in window)){
+    alert('Pemindai kamera belum didukung browser ini. Gunakan Chrome Android terbaru atau scanner Bluetooth/USB yang mengetik kode ke kolom barcode.');
+    return;
+  }
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    alert('Kamera memerlukan koneksi HTTPS. Buka DIHO melalui alamat GitHub Pages HTTPS.');
+    return;
+  }
+  try{
+    const formats=['ean_13','ean_8','upc_a','upc_e','code_128','code_39','itf','codabar'];
+    let supported=formats;
+    if(BarcodeDetector.getSupportedFormats){
+      const available=await BarcodeDetector.getSupportedFormats();
+      supported=formats.filter(f=>available.includes(f));
+    }
+    if(!supported.length){alert('Browser tidak mendukung format barcode yang umum.');return;}
+    barcodeDetector=new BarcodeDetector({formats:supported});
+    barcodeStream=await navigator.mediaDevices.getUserMedia({audio:false,video:{facingMode:{ideal:'environment'}}});
+    const video=$('barcodeVideo');video.srcObject=barcodeStream;
+    $('cameraPanel').classList.remove('hidden');
+    $('cameraStatus').textContent='Arahkan barcode ke dalam kotak kamera.';
+    await video.play();barcodeRunning=true;
+    const scanFrame=async()=>{
+      if(!barcodeRunning)return;
+      try{
+        if(video.readyState>=2){
+          const codes=await barcodeDetector.detect(video);
+          if(codes && codes.length && codes[0].rawValue){
+            const value=codes[0].rawValue.trim();
+            $('scan').value=value;
+            await stopBarcodeCamera();
+            scanAdd();
+            return;
+          }
+        }
+      }catch(err){}
+      if(barcodeRunning)barcodeFrame=requestAnimationFrame(scanFrame);
+    };
+    scanFrame();
+  }catch(err){
+    await stopBarcodeCamera();
+    alert('Tidak bisa membuka kamera. Izinkan akses kamera untuk Chrome dan pastikan kamera tidak sedang digunakan aplikasi lain.');
+  }
+}
+$('cameraScanBtn').addEventListener('click',startBarcodeCamera);
+$('stopCameraBtn').addEventListener('click',stopBarcodeCamera);
+document.addEventListener('visibilitychange',()=>{if(document.hidden && barcodeRunning)stopBarcodeCamera()});
+
 })();

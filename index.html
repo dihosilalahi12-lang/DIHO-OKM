@@ -9,6 +9,10 @@
 :root{--green:#123e32;--green2:#145744;--mint:#eaf4ee;--bg:#f3f6f4;--ink:#17372b;--muted:#687a70;--line:#dce6df;--red:#b42318}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px system-ui,-apple-system,Segoe UI,Roboto,sans-serif}header{background:var(--green);color:white;padding:16px max(16px,env(safe-area-inset-left));display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:0;z-index:5}header b{font-size:19px;letter-spacing:.5px}header small{display:block;opacity:.8;font-size:11px}.pill{border:1px solid #ffffff55;border-radius:20px;padding:6px 10px;font-size:12px}nav{display:flex;gap:6px;overflow:auto;padding:10px;background:white;border-bottom:1px solid var(--line);position:sticky;top:62px;z-index:4}nav button{white-space:nowrap;background:white;color:var(--green);border:1px solid var(--line);padding:9px 12px;border-radius:10px}nav button.active{background:var(--green2);color:white;border-color:var(--green2)}main{max-width:1200px;margin:auto;padding:16px}.page{display:none}.page.active{display:block}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}.card{background:white;border:1px solid var(--line);border-radius:14px;padding:14px;box-shadow:0 2px 8px #183b2b08}.stat{font-size:24px;font-weight:750;margin-top:5px}.muted{color:var(--muted);font-size:13px}h2{font-size:20px;margin:4px 0 14px}h3{font-size:16px;margin:0 0 10px}label{display:block;font-size:13px;font-weight:650;margin:10px 0 5px}input,select,textarea{width:100%;padding:11px;border:1px solid #cbd8cf;border-radius:9px;background:white;color:var(--ink);font:inherit}button{cursor:pointer;font:inherit}button.primary,.primary{background:var(--green2);color:white;border:0;border-radius:9px;padding:11px 14px;font-weight:650}button.secondary{background:var(--mint);color:var(--green);border:1px solid #cfe0d4;border-radius:9px;padding:10px 12px}button.danger{background:#fff0ef;color:var(--red);border:1px solid #f1cfcb;border-radius:9px;padding:8px 10px}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.row>*{flex:1}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:10px 0}.toolbar>*{flex:1;min-width:130px}.tablewrap{overflow:auto}table{width:100%;border-collapse:collapse;background:white;font-size:13px}th,td{text-align:left;padding:10px;border-bottom:1px solid var(--line);white-space:nowrap}th{background:#f7faf8}.right{text-align:right}.product-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(145px,1fr));gap:9px;margin-top:12px}.product{background:white;border:1px solid var(--line);border-radius:12px;padding:10px;text-align:left;color:var(--ink);min-height:100px}.product b{display:block;margin:5px 0}.product small{color:var(--muted)}.checkout{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(280px,.8fr);gap:14px}.cartline{display:flex;justify-content:space-between;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}.cartline small{display:block;color:var(--muted)}.total{font-size:25px;font-weight:800}.hidden{display:none!important}.notice{background:#fff8df;border:1px solid #f1dfa0;padding:11px;border-radius:10px;font-size:13px;margin:10px 0}.success{background:#e9f7ed;border:1px solid #c6e8d0;padding:10px;border-radius:9px}.empty{padding:25px;text-align:center;color:var(--muted)}footer{text-align:center;padding:25px;color:var(--muted);font-size:12px}@media(max-width:700px){main{padding:11px}.checkout{grid-template-columns:1fr}nav{top:59px}header{padding-top:12px;padding-bottom:12px}.stat{font-size:21px}}
 @media print{header,nav,.no-print,footer{display:none!important}body{background:white}.page{display:none!important}#receiptPrint{display:block!important}.receipt{max-width:340px;margin:auto;color:#000;font:12px monospace}.receipt h2{text-align:center}}
+.robin-hero{position:relative;display:flex;align-items:flex-end;min-height:180px;max-height:290px;overflow:hidden;border-radius:16px;margin:0 0 14px;background:#dff3ed;border:1px solid var(--line)}
+.robin-hero img{width:100%;height:290px;object-fit:cover;object-position:center 35%;display:block}
+.robin-welcome{position:absolute;left:12px;bottom:12px;max-width:min(82%,340px);padding:12px 15px;background:#ffffffed;color:var(--green);border:1px solid #cfe0d4;border-radius:13px;box-shadow:0 3px 14px #123e3222}
+.robin-welcome strong,.robin-welcome span{display:block}.robin-welcome span{font-size:13px;margin-top:4px}
 </style></head>
 <body>
 <header><div><b>DIHO KASIR PRO</b><small>POINT OF SALE • INVENTORY</small></div><span class="pill" id="netState">● Offline-ready</span></header>
@@ -17,7 +21,12 @@
 </nav>
 <main>
 <section class="page active" id="dashboard">
-<h2>Dashboard toko</h2><div class="grid">
+<h2>Dashboard toko</h2>
+<div class="robin-hero">
+  <img src="robin-maskot.jpg" alt="Maskot bajak laut Nico Robin dengan banyak tangan" loading="lazy">
+  <div class="robin-welcome"><strong>Selamat datang di DIHO KASIR PRO!</strong><span>Semangat berjualan hari ini 🌸</span></div>
+</div>
+<div class="grid">
 <div class="card"><div class="muted">Penjualan hari ini</div><div class="stat" id="dSales">Rp0</div></div>
 <div class="card"><div class="muted">Transaksi hari ini</div><div class="stat" id="dCount">0</div></div>
 <div class="card"><div class="muted">Jumlah produk</div><div class="stat" id="dProducts">0</div></div>
@@ -27,6 +36,11 @@
 <section class="page" id="kasir">
 <h2>Kasir / Penjualan</h2><div class="checkout"><div class="card">
 <label>Scan / masukkan barcode atau UPC</label><div class="row"><input id="scan" placeholder="Arahkan scanner lalu tekan Enter" autocomplete="off"><button class="primary" id="addScan" style="flex:0 0 auto">Tambah</button></div>
+<div class="row" style="margin-top:8px"><button class="secondary" id="cameraScanBtn" type="button">📷 Scan dengan kamera</button></div>
+<div id="cameraPanel" class="card hidden" style="margin-top:10px;padding:10px">
+  <video id="barcodeVideo" autoplay muted playsinline style="width:100%;max-height:280px;object-fit:cover;border-radius:9px;background:#111"></video>
+  <div class="row" style="margin-top:8px"><span id="cameraStatus" class="muted">Arahkan barcode ke kamera.</span><button class="danger" id="stopCameraBtn" type="button" style="flex:0 0 auto">Tutup kamera</button></div>
+</div>
 <label>Cari nama / kode barang</label><input id="searchProduct" placeholder="Cari produk..."><div class="product-grid" id="productGrid"></div>
 </div><div class="card"><h3>Keranjang</h3><div id="cart"><div class="empty">Belum ada barang</div></div><div class="row" style="margin-top:12px"><span class="muted">Subtotal</span><b id="subtotal">Rp0</b></div>
 <label>Diskon transaksi (Rp)</label><input id="discount" type="number" min="0" value="0"><div class="row" style="margin:12px 0"><span>Total</span><span class="total" id="grandTotal">Rp0</span></div>
