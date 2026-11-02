@@ -13,6 +13,58 @@
 .robin-hero img{width:100%;height:290px;object-fit:cover;object-position:center 35%;display:block}
 .robin-welcome{position:absolute;left:12px;bottom:12px;max-width:min(82%,340px);padding:12px 15px;background:#ffffffed;color:var(--green);border:1px solid #cfe0d4;border-radius:13px;box-shadow:0 3px 14px #123e3222}
 .robin-welcome strong,.robin-welcome span{display:block}.robin-welcome span{font-size:13px;margin-top:4px}
+
+/* DIHO premium responsive dashboard */
+:root{--green:#064b39;--green2:#08734e;--bg:#eef5f1}
+body{background:linear-gradient(145deg,#edf7f1,#f7faf8);font-family:system-ui,-apple-system,"Segoe UI",sans-serif}
+header{background:linear-gradient(100deg,#003d30,#08734e);padding:15px 20px;border-bottom:3px solid #b8e7d1}
+header b{font-size:clamp(20px,3vw,28px);letter-spacing:1px}
+header small{font-size:12px;letter-spacing:1px}
+.pill{background:#ffffff12;padding:8px 13px}
+nav{padding:10px 14px;gap:8px;box-shadow:0 3px 12px #0b503015}
+nav button{border-radius:12px;padding:11px 16px;font-weight:650}
+nav button.active{background:linear-gradient(120deg,#08734e,#0b9a61);box-shadow:0 4px 12px #08734e33}
+main{max-width:1440px;padding:22px}
+#dashboard .dash-heading{display:flex;align-items:center;justify-content:space-between;margin:0 0 16px}
+.dash-heading h2{font-size:clamp(23px,3vw,32px);margin:2px 0;color:#064b39}
+.dash-heading p{margin:0;color:#6c8277;font-size:13px}
+.eyebrow{font-size:11px;font-weight:800;letter-spacing:2px;color:#16835c}
+.dash-mark{padding:9px 14px;border-radius:30px;background:#e0f2e8;color:#086143;font-weight:750}
+.dash-layout{display:grid;grid-template-columns:minmax(0,1.02fr) minmax(0,1fr);gap:16px;align-items:stretch}
+.robin-hero{position:relative;min-height:430px;max-height:570px;margin:0;border-radius:20px;overflow:hidden;border:1px solid #c8e3d3;box-shadow:0 8px 25px #0b50301a;background:#dff3ed}
+.robin-hero img{width:100%;height:100%;min-height:430px;max-height:570px;object-fit:cover;object-position:center 28%;display:block}
+.robin-welcome{left:16px;bottom:16px;max-width:85%;padding:13px 17px;background:#fffFf2;color:#07533c;border-radius:15px;box-shadow:0 4px 16px #063d2d30}
+.robin-welcome strong{font-size:20px}.robin-welcome span{font-size:14px}
+.dash-side{display:flex;flex-direction:column;gap:14px}
+.stats-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.stat-card{position:relative;min-height:126px;padding:17px;border-radius:17px;box-shadow:0 4px 16px #103d2c0d}
+.stat-card .stat{font-size:clamp(23px,3vw,30px);color:#07583e}
+.stat-icon{font-size:24px;display:block;margin-bottom:7px}
+.stat-card.sales{border-top:4px solid #07834f}.stat-card.goods{border-top:4px solid #2676d2}.stat-card.transactions{border-top:4px solid #7750bd}.stat-card.low{border-top:4px solid #d58a24}
+.quick-panel{background:linear-gradient(130deg,#064b39,#08734e);color:white;border-radius:17px;padding:16px;box-shadow:0 5px 18px #064b3928}
+.quick-panel h3{font-size:17px;margin:0 0 12px}
+.quick-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.quick-btn{background:#f7fffa;color:#07543d;border:1px solid #cde8d8;border-radius:12px;padding:12px 7px;font-size:12px;font-weight:750;min-height:76px}
+.quick-btn span{display:block;font-size:23px;margin-bottom:5px}
+.quick-btn:active{transform:scale(.97)}
+.dash-lower .card{border-radius:16px}
+@media(max-width:760px){
+ main{padding:13px}
+ #dashboard .dash-heading{margin-bottom:12px}
+ .dash-mark{font-size:11px;padding:7px 10px}
+ .dash-layout{grid-template-columns:1fr;gap:12px}
+ .robin-hero{min-height:300px;max-height:380px}
+ .robin-hero img{min-height:300px;height:380px;max-height:380px;object-position:center 27%}
+ .robin-welcome{left:10px;bottom:10px;padding:10px 12px;max-width:90%}
+ .robin-welcome strong{font-size:16px}
+ .robin-welcome span{font-size:12px}
+ .stats-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .stat-card{min-height:108px;padding:12px}
+ .stat-card .stat{font-size:22px}
+ .quick-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .quick-btn{min-height:72px;padding:9px 4px;font-size:11px}
+ .dash-lower{grid-template-columns:1fr}
+}
 </style></head>
 <body>
 <header><div><b>DIHO KASIR PRO</b><small>POINT OF SALE • INVENTORY</small></div><span class="pill" id="netState">● Offline-ready</span></header>
@@ -21,17 +73,32 @@
 </nav>
 <main>
 <section class="page active" id="dashboard">
-<h2>Dashboard toko</h2>
-<div class="robin-hero">
-  <img src="robin-maskot.jpg" alt="Maskot bajak laut Nico Robin dengan banyak tangan" loading="lazy">
-  <div class="robin-welcome"><strong>Selamat datang di DIHO KASIR PRO!</strong><span>Semangat berjualan hari ini 🌸</span></div>
+<div class="dash-heading"><div><span class="eyebrow">SELAMAT DATANG DI</span><h2>DIHO KASIR PRO</h2><p>Kasir • Stok Barang • Laporan</p></div><span class="dash-mark">🌸 DIHO YT</span></div>
+<div class="dash-layout">
+  <div class="robin-hero">
+    <img src="robin-maskot.jpg" alt="Maskot Nico Robin dengan banyak tangan" loading="lazy">
+    <div class="robin-welcome"><strong>Semangat berjualan!</strong><span>Hari ini waktunya toko DIHO makin maju 🌸</span></div>
+  </div>
+  <div class="dash-side">
+    <div class="stats-grid">
+      <div class="card stat-card sales"><span class="stat-icon">🛒</span><div class="muted">Total penjualan hari ini</div><div class="stat" id="dSales">Rp0</div></div>
+      <div class="card stat-card goods"><span class="stat-icon">📦</span><div class="muted">Jumlah produk</div><div class="stat" id="dProducts">0</div></div>
+      <div class="card stat-card transactions"><span class="stat-icon">📈</span><div class="muted">Transaksi hari ini</div><div class="stat" id="dCount">0</div></div>
+      <div class="card stat-card low"><span class="stat-icon">⚠️</span><div class="muted">Stok menipis (≤ 5)</div><div class="stat" id="dLow">0</div></div>
+    </div>
+    <div class="quick-panel">
+      <h3>Menu cepat</h3>
+      <div class="quick-grid">
+        <button class="quick-btn" onclick="page('kasir')"><span>📷</span>Scan / Kasir</button>
+        <button class="quick-btn" onclick="page('produk')"><span>📦</span>Daftar barang</button>
+        <button class="quick-btn" onclick="page('transaksi')"><span>🧾</span>Transaksi</button>
+        <button class="quick-btn" onclick="page('laporan')"><span>📊</span>Laporan</button>
+        <button class="quick-btn" onclick="page('pengaturan')"><span>💾</span>Backup data</button>
+      </div>
+    </div>
+  </div>
 </div>
-<div class="grid">
-<div class="card"><div class="muted">Penjualan hari ini</div><div class="stat" id="dSales">Rp0</div></div>
-<div class="card"><div class="muted">Transaksi hari ini</div><div class="stat" id="dCount">0</div></div>
-<div class="card"><div class="muted">Jumlah produk</div><div class="stat" id="dProducts">0</div></div>
-<div class="card"><div class="muted">Stok menipis (≤ 5)</div><div class="stat" id="dLow">0</div></div></div>
-<div class="grid" style="margin-top:14px"><div class="card"><h3>Transaksi terbaru</h3><div id="recent"></div></div><div class="card"><h3>Pengingat stok</h3><div id="lowList"></div></div></div>
+<div class="grid dash-lower" style="margin-top:14px"><div class="card"><h3>🧾 Transaksi terbaru</h3><div id="recent"></div></div><div class="card"><h3>📦 Pengingat stok</h3><div id="lowList"></div></div></div>
 </section>
 <section class="page" id="kasir">
 <h2>Kasir / Penjualan</h2><div class="checkout"><div class="card">
